@@ -27,14 +27,15 @@ Cell.prototype.display = function() {
       continue;
     }
     line(
-      this.coordinates[i % 6][0],
-      this.coordinates[i % 6][1],
-      this.coordinates[(i + 1) % 6][0],
-      this.coordinates[(i + 1) % 6][1])
+      this.coordinates[i % 6][0] - (2*w + 3*cellSize)/2,
+      this.coordinates[i % 6][1] - 2.5*h,
+      this.coordinates[(i + 1) % 6][0] - (2*w + 3*cellSize)/2,
+      this.coordinates[(i + 1) % 6][1] - 2.5*h)
   }
-  // textAlign(CENTER)
-  // strokeWeight(1)
-  // text(this.i + ", " + this.j,this.x,this.y)
+  textAlign(CENTER)
+  textSize(10)
+  strokeWeight(1)
+  text(this.i + ", " + this.j,this.x - (2*w + 3*cellSize)/2 ,this.y - 2.5*h)
 }
 
 Cell.prototype.hexCorner = function(index) {
@@ -56,6 +57,10 @@ Cell.prototype.breakWall = function(index) {
     this.walls[index] = false
     this.neighbour[index].walls[oppositeWallIndex] = false;
   }
+}
+
+Cell.prototype.forceBreakWall = function(index) {
+  this.walls[index] = false
 }
 
 Cell.prototype.recursiveBackTracker = function() {
